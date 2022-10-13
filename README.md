@@ -34,7 +34,7 @@ configs explanation:
     "pool": {
         "port": 20032,                  // port which the server bind
         "diff": 64,                     // init difficulty
-
+        "proxyProtocol": false,         // enable it to get real client IPs if you are behind a reverse proxy that uses Proxy Protocol v1  
         "varDiff": {
             "minDiff": 16,              // minimum difficulty
             "maxDiff": 4096,            // maximum difficulty
@@ -167,4 +167,31 @@ Lastly, for single-user setups these are suitable payout and reward settings:
 
     "minPaymentCoins": "10",            // Increases the min payout to 10 Alph
     "paymentInterval": 7200,            // Increased to 1 payment every 2 hours.
+```
+
+
+## TLS configuration
+
+
+```
+...
+    "pool": {
+        "port": 20443,
+        "tls": true,
+        "privateKeyPath": "/path/to/pool.key",
+        "publicCertPath": "/path/to/pool.pem",
+        ...
+    }
+```
+
+Generate a basic, self-signed TLS certificate
+
+```
+openssl req -newkey rsa:4096 \
+            -x509 \
+            -sha256 \
+            -days 3650 \
+            -nodes \
+            -out pool.pem \
+            -keyout pool.key
 ```
